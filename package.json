@@ -1,0 +1,24 @@
+{
+  "name": "scm2.0",
+  "version": "1.0.0",
+  "description": "🔹 Smart Contact Manager 2.0\r Tech Stack: Java, Spring Boot, Spring MVC, Thymeleaf, MySQL, Spring Security, Hibernate, Maven, HTML/CSS, JavaScript, Bootstrap",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodingBeast01/scm2.0.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodingBeast01/scm2.0/issues"
+  },
+  "homepage": "https://github.com/CodingBeast01/scm2.0#readme",
+  "devDependencies": {
+    "tailwindcss": "^4.1.11"
+  }
+}
