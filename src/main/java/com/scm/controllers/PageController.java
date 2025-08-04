@@ -1,10 +1,23 @@
 package com.scm.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.scm.entities.User;
+import com.scm.forms.UserForm;
+import com.scm.services.UserService;
 
 @Controller
 public class PageController {
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/home")
     public String home() {
@@ -23,5 +36,49 @@ public class PageController {
         System.out.println("Navigating to services page");
         return "services";
     }
+  @GetMapping("/contact")
+    public String contact() {
+        return new String("contact");
+    }
+
+    // this is showing login page
+    @GetMapping("/login")
+    public String login() {
+        return new String("login");
+    }
+
+    // registration page
+    @GetMapping("/register")
+    public String register(Model model) {
+
+        UserForm userForm = new UserForm();
+        // default data bhi daal sakte hai
+        // userForm.setName("Durgesh");
+         //userForm.setAbout("This is about : Write something about yourself");
+        model.addAttribute("userForm", userForm);
+
+        return "register";
+    }
+    // this is showing register page
+    @PostMapping("/do-register")
+    public String processRegister(@ModelAttribute UserForm userForm) {
+
+        System.out.println("Processing registration form");
+        // Here you would typically save the user data to the database
+        // For now, we just return the home page
+        User user = User.builder()
+                .name(userForm.getName())
+                .email(userForm.getEmail())
+                .password(userForm.getPassword())
+                .about(userForm.getAbout())
+                .phoneNumber(userForm.getPhoneNumber())
+                .profilePic("https://i.pinimg.com/736x/e2/be/f3/e2bef346ae5be671b272a9f102629762.jpg") // Assuming a default profile picture
+                .build();
+       User savedUser = userService.saveUser(user);
+        System.out.println("User registered successfully: " + savedUser.getName());
+        return "redirect:/register";    
+    }
+
+
 
 }
