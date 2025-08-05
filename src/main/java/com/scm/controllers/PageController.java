@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.scm.entities.User;
 import com.scm.forms.UserForm;
+import com.scm.helpers.Message;
+import com.scm.helpers.MessageType;
 import com.scm.services.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class PageController {
@@ -61,21 +65,33 @@ public class PageController {
     }
     // this is showing register page
     @PostMapping("/do-register")
-    public String processRegister(@ModelAttribute UserForm userForm) {
+    public String processRegister(@ModelAttribute UserForm userForm ,HttpSession session) {
 
         System.out.println("Processing registration form");
         // Here you would typically save the user data to the database
         // For now, we just return the home page
-        User user = User.builder()
-                .name(userForm.getName())
-                .email(userForm.getEmail())
-                .password(userForm.getPassword())
-                .about(userForm.getAbout())
-                .phoneNumber(userForm.getPhoneNumber())
-                .profilePic("https://i.pinimg.com/736x/e2/be/f3/e2bef346ae5be671b272a9f102629762.jpg") // Assuming a default profile picture
-                .build();
+        // User user = User.builder()
+        //         .name(userForm.getName())
+        //         .email(userForm.getEmail())
+        //         .password(userForm.getPassword())
+        //         .about(userForm.getAbout())
+        //         .phoneNumber(userForm.getPhoneNumber())
+        //         .profilePic("https://i.pinimg.com/736x/e2/be/f3/e2bef346ae5be671b272a9f102629762.jpg") // Assuming a default profile picture
+        //         .build();
+
+        User user = new User();
+        user.setName(userForm.getName());
+        user.setEmail(userForm.getEmail());
+        user.setPassword(userForm.getPassword());
+
+        user.setAbout(userForm.getAbout());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setProfilePic("https://i.pinimg.com/736x/e2/be/f3/e2bef346ae5be671b272a9f102629762.jpg"); // Default profile picture
        User savedUser = userService.saveUser(user);
         System.out.println("User registered successfully: " + savedUser.getName());
+
+     Message message =   Message.builder().content("Registration Succesful").type(MessageType.green).build();
+        session.setAttribute("message", message);
         return "redirect:/register";    
     }
 
