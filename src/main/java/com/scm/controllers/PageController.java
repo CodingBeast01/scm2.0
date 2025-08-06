@@ -3,6 +3,7 @@ package com.scm.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import com.scm.helpers.MessageType;
 import com.scm.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class PageController {
@@ -65,7 +67,7 @@ public class PageController {
     }
     // this is showing register page
     @PostMapping("/do-register")
-    public String processRegister(@ModelAttribute UserForm userForm ,HttpSession session) {
+    public String processRegister(@Valid @ModelAttribute UserForm userForm , BindingResult bindingResult, HttpSession session) {
 
         System.out.println("Processing registration form");
         // Here you would typically save the user data to the database
@@ -78,6 +80,14 @@ public class PageController {
         //         .phoneNumber(userForm.getPhoneNumber())
         //         .profilePic("https://i.pinimg.com/736x/e2/be/f3/e2bef346ae5be671b272a9f102629762.jpg") // Assuming a default profile picture
         //         .build();
+        if (bindingResult.hasErrors()) {
+            // System.out.println("Validation errors occurred");
+            // bindingResult.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
+            // Message message = Message.builder().content("Please correct the errors in the form").type(MessageType.red).build();
+            // session.setAttribute("message", message);
+            return "register";
+        }
+
 
         User user = new User();
         user.setName(userForm.getName());
