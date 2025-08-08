@@ -40,8 +40,8 @@ public class SecurityConfig {
     @Autowired
     private AuthenticationFailureHandler authFailureHandler;
 
-    //  @Autowired
-    // private OAuthAuthenticationSuccessHandler handler;
+      @Autowired
+     private OAuthAuthenticationSuccessHandler handler;
 
     // configuraiton of authentication providerfor spring security
     @Bean
@@ -114,12 +114,11 @@ public class SecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         // oauth configurations
 
-        // httpSecurity.oauth2Login(oauth -> {
-        //     oauth.loginPage("/login");
-        //     oauth.successHandler(handler);
-        // });
-
-        httpSecurity.logout(logoutForm -> {
+        httpSecurity.oauth2Login(oauth -> {
+            oauth.loginPage("/login");
+            oauth.successHandler(handler);
+        });
+         httpSecurity.logout(logoutForm -> {
             logoutForm.logoutUrl("/do-logout");
             logoutForm.logoutSuccessUrl("/login?logout=true");
         });
