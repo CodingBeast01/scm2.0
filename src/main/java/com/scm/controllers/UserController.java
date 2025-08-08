@@ -15,10 +15,10 @@ public class UserController {
         return "user/dashboard";
     }
 
-    // @RequestMapping(value ="/profile", method=RequestMethod.GET)
-    // public String userProfile() {
-    //     return "user/profile";
-    // }
+    @RequestMapping(value ="/profile", method=RequestMethod.GET)
+    public String userProfile() {
+        return "user/profile";
+    }
     
 
 
