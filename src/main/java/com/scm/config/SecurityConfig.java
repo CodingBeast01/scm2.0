@@ -38,7 +38,8 @@ public class SecurityConfig {
     @Autowired
     private SecurityUserCustomDetailService userDetailService;
 
-    @Autowired
+    @Autowired(required = false)
+     // if this is not null then it will be used
     private AuthenticationFailureHandler authFailureHandler;
 
      @Autowired
@@ -55,6 +56,8 @@ public class SecurityConfig {
 
         return daoAuthenticationProvider;
     }
+
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
