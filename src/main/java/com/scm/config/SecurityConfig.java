@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import com.scm.services.impl.SecurityUserCustomDetailService;
+import com.scm.config.OAuthAuthenicationSuccessHandler;
 
 @Configuration
 public class SecurityConfig {
@@ -40,8 +41,8 @@ public class SecurityConfig {
     @Autowired
     private AuthenticationFailureHandler authFailureHandler;
 
-      @Autowired
-     private OAuthAuthenticationSuccessHandler handler;
+     @Autowired
+     private OAuthAuthenicationSuccessHandler handler;
 
     // configuraiton of authentication providerfor spring security
     @Bean
