@@ -41,7 +41,7 @@ public class SecurityConfig {
     @Autowired(required = false)
      // if this is not null then it will be used
     private AuthenticationFailureHandler authFailureHandler;
-
+    
      @Autowired
      private OAuthAuthenicationSuccessHandler handler;
 

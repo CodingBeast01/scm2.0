@@ -99,7 +99,7 @@ public class UserServicesImpl implements UserService {
     public User getUserByEmail(String email) {
       
         return userRepo.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
+                .orElse(null);
     }
 
 }
