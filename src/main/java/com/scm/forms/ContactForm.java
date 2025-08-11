@@ -19,7 +19,8 @@ public class ContactForm {
   @NotBlank(message = "Name is required")
     private String name;
 
-    @Email(message = "Email is required")
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
     private String email;
 
     @NotBlank(message = "Phone number is required")

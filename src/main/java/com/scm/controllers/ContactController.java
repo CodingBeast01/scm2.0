@@ -8,11 +8,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.slf4j.Logger;
 
 import com.scm.entities.Contact;
 import com.scm.entities.User;
 import com.scm.forms.ContactForm;
 import com.scm.helpers.Helper;
+import com.scm.helpers.Message;
+import com.scm.helpers.MessageType;
 import com.scm.services.ContactService;
 import com.scm.services.UserService;
 
@@ -22,6 +25,11 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/user/contact")
 public class ContactController {
+
+
+    private Logger logger = org.slf4j.LoggerFactory.getLogger(ContactController.class);
+
+
 
     @Autowired
     ContactService contactService;
@@ -44,10 +52,16 @@ public class ContactController {
                                    {
         System.out.println("Contact saved: " + contactForm);
 
-        if (result.hasErrors()) {
-            return "user/add_Contact";
-        }                      
+    if (result.hasErrors()) {
 
+            result.getAllErrors().forEach(error -> logger.info(error.toString()));
+
+            session.setAttribute("message", Message.builder()
+                    .content("Please correct the following errors")
+                    .type(MessageType.red)
+                    .build());
+            return "user/add_contact";
+        }
 
         
 
@@ -68,6 +82,14 @@ public class ContactController {
 
 
         contactService.save(contact );
+
+         session.setAttribute("message",
+                Message.builder()
+                        .content("You have successfully added a new contact")
+                        .type(MessageType.green)
+                        .build());
+
+
         return "redirect:/user/contacts/add";
     }
 
