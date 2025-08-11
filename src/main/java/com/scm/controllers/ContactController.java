@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,9 @@ import com.scm.forms.ContactForm;
 import com.scm.helpers.Helper;
 import com.scm.services.ContactService;
 import com.scm.services.UserService;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/user/contact")
@@ -34,8 +38,18 @@ public class ContactController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String saveContact(@ModelAttribute ContactForm contactForm , Authentication authentication) {
+    public String saveContact(@Valid  @ModelAttribute ContactForm contactForm ,
+                                 Authentication authentication , BindingResult result ,
+                                  HttpSession session)
+                                   {
         System.out.println("Contact saved: " + contactForm);
+
+        if (result.hasErrors()) {
+            return "user/add_Contact";
+        }                      
+
+
+        
 
         String username = Helper.getEmailOfLoggedInUser(authentication);
 
