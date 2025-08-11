@@ -38,7 +38,7 @@ public class ContactForm {
     private String linkedInLink;
   //  private List<String> socialLinks = new ArrayList<>();
 
-  private MultipartFile profileImage;
+  private MultipartFile contactImage;
 
 
 }

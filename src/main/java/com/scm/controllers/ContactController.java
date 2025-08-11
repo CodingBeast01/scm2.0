@@ -17,6 +17,7 @@ import com.scm.helpers.Helper;
 import com.scm.helpers.Message;
 import com.scm.helpers.MessageType;
 import com.scm.services.ContactService;
+import com.scm.services.ImageService;
 import com.scm.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -29,6 +30,8 @@ public class ContactController {
 
     private Logger logger = org.slf4j.LoggerFactory.getLogger(ContactController.class);
 
+     @Autowired
+    private ImageService imageService;
 
 
     @Autowired
@@ -69,6 +72,8 @@ public class ContactController {
 
          User user = userService.getUserByEmail(username);
         //form -- contact
+
+
         Contact contact = new Contact();
           contact.setName(contactForm.getName());
         contact.setFavorite(contactForm.isFavorite());
