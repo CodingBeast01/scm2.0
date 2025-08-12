@@ -72,7 +72,7 @@ public class ContactController {
 
          User user = userService.getUserByEmail(username);
 
-         String fileURL = imageService.uploadImage(contactForm.getContactImage());
+         //String fileURL = imageService.uploadImage(contactForm.getContactImage());
         //form -- contact
 
 
