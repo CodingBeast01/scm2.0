@@ -100,4 +100,11 @@ public class ContactController {
         return "redirect:/user/contacts/add";
     }
 
+    // view contacts
+    @RequestMapping("/view")
+    public String viewContacts(Model model, Authentication authentication) {
+       
+        return "user/contacts";
+    }
+
 }

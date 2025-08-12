@@ -80,6 +80,9 @@
 .flex-1 {
   flex: 1;
 }
+.flex-shrink {
+  flex-shrink: 1;
+}
 .flex-shrink-0 {
   flex-shrink: 0;
 }
@@ -114,8 +117,21 @@
 .justify-center {
   justify-content: center;
 }
+.justify-start {
+  justify-content: flex-start;
+}
+.-space-x-px {
+  :where(& > :not(:last-child)) {
+    --tw-space-x-reverse: 0;
+    margin-inline-start: calc(-1px * var(--tw-space-x-reverse));
+    margin-inline-end: calc(-1px * calc(1 - var(--tw-space-x-reverse)));
+  }
+}
 .self-center {
   align-self: center;
+}
+.overflow-x-auto {
+  overflow-x: auto;
 }
 .overflow-y-auto {
   overflow-y: auto;
@@ -127,9 +143,17 @@
   border-style: var(--tw-border-style);
   border-width: 1px;
 }
+.border-e-0 {
+  border-inline-end-style: var(--tw-border-style);
+  border-inline-end-width: 0px;
+}
 .border-t-\[10px\] {
   border-top-style: var(--tw-border-style);
   border-top-width: 10px;
+}
+.border-b {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
 }
 .object-cover {
   object-fit: cover;
@@ -137,8 +161,14 @@
 .text-center {
   text-align: center;
 }
+.text-left {
+  text-align: left;
+}
 .whitespace-nowrap {
   white-space: nowrap;
+}
+.uppercase {
+  text-transform: uppercase;
 }
 .italic {
   font-style: italic;
@@ -206,6 +236,11 @@
     }
   }
 }
+.rtl\:text-right {
+  &:where(:dir(rtl), [dir="rtl"], [dir="rtl"] *) {
+    text-align: right;
+  }
+}
 @property --tw-translate-x {
   syntax: "*";
   inherits: false;
@@ -240,6 +275,11 @@
 @property --tw-skew-y {
   syntax: "*";
   inherits: false;
+}
+@property --tw-space-x-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
 }
 @property --tw-border-style {
   syntax: "*";
@@ -330,11 +370,6 @@
   inherits: false;
   initial-value: 0 0 #0000;
 }
-@property --tw-space-x-reverse {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
@@ -346,6 +381,7 @@
       --tw-rotate-z: initial;
       --tw-skew-x: initial;
       --tw-skew-y: initial;
+      --tw-space-x-reverse: 0;
       --tw-border-style: solid;
       --tw-duration: initial;
       --tw-scale-x: 1;
@@ -365,7 +401,6 @@
       --tw-ring-offset-width: 0px;
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
-      --tw-space-x-reverse: 0;
     }
   }
 }
