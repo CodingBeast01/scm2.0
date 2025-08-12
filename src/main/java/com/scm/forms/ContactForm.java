@@ -41,7 +41,7 @@ public class ContactForm {
     private String linkedInLink;
   //  private List<String> socialLinks = new ArrayList<>();
 
-  @ValidFile
+  @ValidFile(message = "Invalid File")
   private MultipartFile contactImage;
 
 
