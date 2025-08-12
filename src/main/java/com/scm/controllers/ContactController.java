@@ -71,6 +71,8 @@ public class ContactController {
         String username = Helper.getEmailOfLoggedInUser(authentication);
 
          User user = userService.getUserByEmail(username);
+
+         String fileURL = imageService.uploadImage(contactForm.getContactImage());
         //form -- contact
 
 
