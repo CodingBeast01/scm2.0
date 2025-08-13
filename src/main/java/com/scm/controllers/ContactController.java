@@ -168,5 +168,6 @@ public class ContactController {
         return "user/search";
     }
 
+    //view contact
 
 }
