@@ -49,8 +49,7 @@ public class SecurityConfig {
      // if this is not null then it will be used
     private AuthenticationFailureHandler authFailureHandler;
     
-     @Autowired
-     private OAuthAuthenicationSuccessHandler handler;
+    
 
     // configuraiton of authentication providerfor spring security
     @Bean
