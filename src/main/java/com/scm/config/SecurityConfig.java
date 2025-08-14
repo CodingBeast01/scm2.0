@@ -123,7 +123,7 @@ public class SecurityConfig {
 
         });
 
-        formLogin.failureHandler(authFailtureHandler);
+       
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         // oauth configurations
