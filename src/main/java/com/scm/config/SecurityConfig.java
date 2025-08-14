@@ -35,8 +35,15 @@ public class SecurityConfig {
     // // .roles(null)
     // .build();
 
+   @Autowired
+    private SecurityCustomUserDetailService userDetailService;
+
     @Autowired
-    private SecurityUserCustomDetailService userDetailService;
+    private OAuthAuthenicationSuccessHandler handler;
+
+    @Autowired
+    private AuthFailtureHandler authFailtureHandler;
+
 
     @Autowired(required = false)
      // if this is not null then it will be used
@@ -114,6 +121,8 @@ public class SecurityConfig {
             formLogin.failureHandler(authFailureHandler);
 
         });
+
+        formLogin.failureHandler(authFailtureHandler);
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         // oauth configurations

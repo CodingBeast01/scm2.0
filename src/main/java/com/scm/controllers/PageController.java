@@ -102,6 +102,7 @@ public class PageController {
 
         user.setAbout(userForm.getAbout());
         user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setEnabled(false); // Set user as not enabled by default
         user.setProfilePic("https://i.pinimg.com/736x/e2/be/f3/e2bef346ae5be671b272a9f102629762.jpg"); // Default profile picture
        User savedUser = userService.saveUser(user);
         System.out.println("User registered successfully: " + savedUser.getName());

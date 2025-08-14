@@ -3,20 +3,23 @@ package com.scm.services.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.logging.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.scm.entities.User;
 import com.scm.helpers.AppConstants;
+import com.scm.helpers.Helper;
 import com.scm.helpers.ResourceNotFoundException;
 import com.scm.repsitories.UserRepo;
+import com.scm.services.EmailService;
 import com.scm.services.UserService;
 
 @Service
-public class UserServicesImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepo userRepo;
@@ -24,26 +27,40 @@ public class UserServicesImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    @Autowired
+    private EmailService emailService;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+
+    @Autowired
+    private  Helper helper;
 
     @Override
     public User saveUser(User user) {
-
-        String userId =  UUID.randomUUID().toString();
-
+        // user id : have to generate
+        String userId = UUID.randomUUID().toString();
         user.setUserId(userId);
-        //password encoding
+        // password encode
+        // user.setPassword(userId);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // set the user role
 
         user.setRoleList(List.of(AppConstants.ROLE_USER));
 
         logger.info(user.getProvider().toString());
-        return userRepo.save(user);
+        String emailToken = UUID.randomUUID().toString();
+        user.setEmailToken(emailToken);
+        User savedUser = userRepo.save(user);
+        String emailLink = helper.getLinkForEmailVerificatiton(emailToken);
+        emailService.sendEmail(savedUser.getEmail(), "Verify Account : Smart  Contact Manager", emailLink);
+        return savedUser;
+
     }
 
     @Override
     public Optional<User> getUserById(String id) {
-        // TODO Auto-generated method stub
         return userRepo.findById(id);
     }
 
@@ -79,13 +96,13 @@ public class UserServicesImpl implements UserService {
     }
 
     @Override
-    public boolean isUserExists(String userId) {
+    public boolean isUserExist(String userId) {
         User user2 = userRepo.findById(userId).orElse(null);
         return user2 != null ? true : false;
     }
 
     @Override
-    public boolean isUserExistsByEmail(String email) {
+    public boolean isUserExistByEmail(String email) {
         User user = userRepo.findByEmail(email).orElse(null);
         return user != null ? true : false;
     }
@@ -97,9 +114,8 @@ public class UserServicesImpl implements UserService {
 
     @Override
     public User getUserByEmail(String email) {
-      
-        return userRepo.findByEmail(email)
-                .orElse(null);
+        return userRepo.findByEmail(email).orElse(null);
+
     }
 
 }
