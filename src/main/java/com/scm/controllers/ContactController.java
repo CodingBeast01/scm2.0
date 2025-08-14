@@ -97,7 +97,19 @@ public class ContactController {
         contact.setWebsiteLink(contactForm.getWebsiteLink());
 
 
-        contactService.save(contact );
+        if (contactForm.getContactImage() != null && !contactForm.getContactImage().isEmpty()) {
+            String filename = UUID.randomUUID().toString();
+            String fileURL = imageService.uploadImage(contactForm.getContactImage(), filename);
+            contact.setPicture(fileURL);
+            contact.setCloudinaryImagePublicId(filename);
+
+        }
+        contactService.save(contact);
+        System.out.println(contactForm);
+
+        // 3 set the contact picture url
+
+        // 4 `set message to be displayed on the view
 
          session.setAttribute("message",
                 Message.builder()
