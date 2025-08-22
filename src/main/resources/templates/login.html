@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html
-  lang="en"
-  th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
->
+        lang="en"
+        th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
+        xmlns:th="http://www.w3.org/1999/xhtml">
   <head>
     <title>Login</title>
   </head>
@@ -41,7 +41,7 @@
 
             <!-- this is  form -->
             <form
-              method="post"
+              method="get"
               data-th-action="@{'/authenticate'}"
               class="mt-5"
             >

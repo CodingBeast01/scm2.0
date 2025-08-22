@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Helper {
 
-    @Value("${server.baseUrl}")
+    @Value("${server.base.url}")
     private String baseUrl;
 
     public static String getEmailOfLoggedInUser(Authentication authentication) {

@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.scm.entities.User;
 import com.scm.helpers.Helper;
@@ -20,7 +18,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    
+    @GetMapping("/authenticate")
+    public String authenticate(){
+        return "user/dashboard";
+    }
 
 
     @RequestMapping(value ="/dashboard", method=RequestMethod.GET)
